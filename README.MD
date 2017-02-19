@@ -1,8 +1,7 @@
 # **Vehicle Detection Project**
 
 
-
-![alttext][.examples/real_time_vehicle_detection.jpg](https://www.youtube.com/watch?v=NevAbwn9ywk)
+[![Real Time Vehicle Detection (video)](.examples/real_time_vehicle_detection.jpg)](https://www.youtube.com/watch?v=NevAbwn9ywke)
 
 
 ### Overview:
@@ -67,7 +66,7 @@ Ultimately I chose YCrCb color space with 3-channel HOG features plus spatially 
 
 ####1. Vehicle detection on Video Pipeline:
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./heat_avg_smooth15_thresh5.mp4)
 
 
 ####2. Removing False Positives and Combining Overlapping Windows:
@@ -86,6 +85,11 @@ Here's an example result showing the heatmap from a series of frames of video, t
 ### Here the resulting bounding boxes are drawn onto the last frame in the series:
 ![alt text][image7]
 
+### The project can also be combined with the previous advanced lane detection repo to get some interesting result
+
+Here's what I got, lane and vehicle detection in realtime :)
+
+[![Real Time Vehicle & Lane Detection (video)](.examples/combined_project.jpg)](https://www.youtube.com/watch?v=KH8WNuqnpq8)
 
 
 ---
