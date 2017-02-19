@@ -50,7 +50,7 @@ I trained both a linear SVM and Random forest classifer. Both of them had very c
 
 ####1. Implementation of sliding window search, choosing the size and overlap:
 
-For sliding window, I chose to decide only an area from 400 px to 656 px on y axis as above (sky) and below no cars would be found. I kept the entire x axis for the search. For the size of the window, I chose three sizes (64,64), (96,96) and (128,128). 
+For sliding window, I chose to decide only an area from 400 px to 656 px on y axis as above (sky) and below no cars would be found. I kept the entire x axis for the search. For the size of the window, I chose three sizes (64,64), (96,96) and (128,128). Here is the area covered by different size sliding windows.
 
 ![alt text][image3]
 
@@ -73,17 +73,18 @@ I recorded the positions of positive detections in each frame of the video.  Fro
 
 Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
 
-### Here are three frames and their corresponding heatmaps:
+#### Here are three frames and their corresponding heatmaps:
 
 ![alt text][image5]
 
-### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
+#### Here is the output of `scipy.ndimage.measurements.label()` on the integrated heatmap from all six frames:
+
 ![alt text][image6]
 
-### Here the resulting bounding boxes are drawn onto the last frame in the series:
+#### Here the resulting bounding boxes are drawn onto the last frame in the series:
 ![alt text][image7]
 
-### The project can also be combined with the previous advanced lane detection repo to get some interesting result
+#### The project can also be combined with the previous advanced lane detection repo to get some interesting result
 
 Here's what I got, lane and vehicle detection in realtime :)
 
@@ -94,5 +95,5 @@ Here's what I got, lane and vehicle detection in realtime :)
 
 ###Discussion
 
-The search can be further speeded up by keeping different y axis start stop for different window sizes as objects which are closer will require a bigger window size and the far away ones will require smaller window. Also, instead of simply tracking heat map from one frame to other, instead Cars can be tracked from one frame to other which would lead to even smoother boxes.
+The search can be speeded up by keeping different y axis start stop for different window sizes as objects which are closer will require a bigger window size and the far away ones will require smaller window. To speed it up further the hog feature can be extracted once for the image and then can be resampled for different window size. Also, instead of simply tracking heat map from one frame to other, instead Cars can be tracked from one frame to other which would lead to even smoother boxes. 
 
