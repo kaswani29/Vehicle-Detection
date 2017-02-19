@@ -22,7 +22,6 @@
 [video1]: ./project_video.mp4
 
 
-
 ###Histogram of Oriented Gradients (HOG)
 
 ####1. Extracting HOG features:
@@ -68,10 +67,9 @@ Ultimately I chose YCrCb color space with 3-channel HOG features plus spatially 
 
 Here's a [link to my video result](./heat_avg_smooth15_thresh5.mp4)
 
-
 ####2. Removing False Positives and Combining Overlapping Windows:
 
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected. Also, as the bounding boxes were moving a lot over car frames. I averaged them over different frames in order to smoothen them out.  
+I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected. Also, as the bounding boxes were moving a lot over car frames. I averaged them over different frames in order to smoothen them out. I chose threshold as 4 and averaged heatmap over 15 frames 
 
 Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
 
@@ -89,7 +87,7 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 Here's what I got, lane and vehicle detection in realtime :)
 
-[![Real Time Vehicle & Lane Detection (video)](./examples/combined_project.jpg)](https://www.youtube.com/watch?v=KH8WNuqnpq8)
+[![Real Time Vehicle & Lane Detection (video)](./examples/Combined_project.jpg)](https://www.youtube.com/watch?v=KH8WNuqnpq8)
 
 
 ---
