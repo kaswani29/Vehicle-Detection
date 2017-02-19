@@ -12,7 +12,7 @@
 [image2]: ./examples/hogimage.png "HOG features"
 [image3]: ./examples/sliding_windows.jpg
 [image4]: ./examples/slidingwindow.jpg "Sliding window"
-[image5]: ./examples/bboxes_and_heat.png
+[image5]: ./examples/bboxes_and_heat1.png
 [image6]: ./examples/labels_map.png
 [image7]: ./examples/output_bboxes.png
 [video1]: ./project_video.mp4
@@ -71,7 +71,7 @@ I recorded the positions of positive detections in each frame of the video.  Fro
 
 Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
 
-### Here are six frames and their corresponding heatmaps:
+### Here are three frames and their corresponding heatmaps:
 
 ![alt text][image5]
 
