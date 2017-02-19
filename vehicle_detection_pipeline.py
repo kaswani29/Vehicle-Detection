@@ -91,40 +91,40 @@ y_start_stop = [400, 656]  # Min and max in y to search in slide_window()
 over_lap =0.5
 #
 # for image in test_images:
-    image = 'test_images/test6.jpg'
-    t = time()
-    img = mpimg.imread(image)
-    draw_image = np.copy(img)
-    img = img.astype(np.float32)/255 # image trained is .png 0 to 1, image searched is 0 to 255
-    heat = np.zeros_like(img[:, :, 0]).astype(np.float)
-
-    window1 = slide_window(img, x_start_stop=[None, None], y_start_stop=y_start_stop,
-                           xy_window=(64, 64), xy_overlap=(over_lap, over_lap))
-
-    window2 = slide_window(img, x_start_stop=[None, None], y_start_stop=y_start_stop,
-                           xy_window=(96, 96), xy_overlap=(over_lap, over_lap))
-    window3 = slide_window(img, x_start_stop=[None, None], y_start_stop=y_start_stop,
-                           xy_window=(128, 128), xy_overlap=(over_lap, over_lap))
-
-    windows = window1 + window3 + window2
-
-    hot_windows = search_windows(img, windows, svc, X_scaler, color_space=color_space,
-                                 spatial_size=spatial_size, hist_bins=hist_bins,
-                                 orient=orient, pix_per_cell=pix_per_cell,
-                                 cell_per_block=cell_per_block,
-                                 hog_channel=hog_channel, spatial_feat=spatial_feat,
-                                 hist_feat=hist_feat, hog_feat=hog_feat)
-    heat_img  = add_heat(heat,hot_windows)
-    heat_img1 = apply_threshold(heat_img,0)
-    heatmap = np.clip(heat_img1, 0, 255)
-    labels = label(heatmap)
-    window_img = draw_labeled_bboxes(np.copy(draw_image), labels)
-    window_img = draw_boxes(draw_image, windows, color=(0, 0, 255), thick=6)
-    images.append(window_img)
-    images.append(heatmap)
-    titles.append(" ")
-    titles.append(" ")
-    print(time()-t, " seconds to process one image with ", len(windows), " windows")
+#
+#     t = time()
+#     img = mpimg.imread(image)
+#     draw_image = np.copy(img)
+#     img = img.astype(np.float32)/255 # image trained is .png 0 to 1, image searched is 0 to 255
+#     heat = np.zeros_like(img[:, :, 0]).astype(np.float)
+#
+#     window1 = slide_window(img, x_start_stop=[None, None], y_start_stop=y_start_stop,
+#                            xy_window=(64, 64), xy_overlap=(over_lap, over_lap))
+#
+#     window2 = slide_window(img, x_start_stop=[None, None], y_start_stop=y_start_stop,
+#                            xy_window=(96, 96), xy_overlap=(over_lap, over_lap))
+#     window3 = slide_window(img, x_start_stop=[None, None], y_start_stop=y_start_stop,
+#                            xy_window=(128, 128), xy_overlap=(over_lap, over_lap))
+#
+#     windows = window1 + window3 + window2
+#
+#     hot_windows = search_windows(img, windows, svc, X_scaler, color_space=color_space,
+#                                  spatial_size=spatial_size, hist_bins=hist_bins,
+#                                  orient=orient, pix_per_cell=pix_per_cell,
+#                                  cell_per_block=cell_per_block,
+#                                  hog_channel=hog_channel, spatial_feat=spatial_feat,
+#                                  hist_feat=hist_feat, hog_feat=hog_feat)
+#     heat_img  = add_heat(heat,hot_windows)
+#     heat_img1 = apply_threshold(heat_img,0)
+#     heatmap = np.clip(heat_img1, 0, 255)
+#     labels = label(heatmap)
+#     window_img = draw_labeled_bboxes(np.copy(draw_image), labels)
+#     window_img = draw_boxes(draw_image, windows, color=(0, 0, 255), thick=6)
+#     images.append(window_img)
+#     images.append(heatmap)
+#     titles.append(" ")
+#     titles.append(" ")
+#     print(time()-t, " seconds to process one image with ", len(windows), " windows")
 
 fig = plt.figure(figsize=(12,18))
 
