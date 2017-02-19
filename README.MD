@@ -67,7 +67,7 @@ Here's a [link to my video result](./project_video.mp4)
 
 ####2. Removing False Positives and Combining Overlapping Windows:
 
-I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected.  
+I recorded the positions of positive detections in each frame of the video.  From the positive detections I created a heatmap and then thresholded that map to identify vehicle positions.  I then used `scipy.ndimage.measurements.label()` to identify individual blobs in the heatmap.  I then assumed each blob corresponded to a vehicle.  I constructed bounding boxes to cover the area of each blob detected. Also, as the bounding boxes were moving a lot over car frames. I averaged them over different frames in order to smoothen them out.  
 
 Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the bounding boxes then overlaid on the last frame of video:
 
@@ -87,9 +87,5 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 ###Discussion
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
-
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
-
-The search can be further by keeping different y axis for different window sizes.
+The search can be further speeded up by keeping different y axis start stop for different window sizes as objects which are closer will require a bigger window size and the far away ones will require smaller window. Also, instead of simply tracking heat map from one frame to other, instead Cars can be tracked from one frame to other which would lead to even smoother boxes.
 
