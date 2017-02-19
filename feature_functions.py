@@ -159,7 +159,7 @@ def draw_boxes(img, bboxes, color=(0, 0, 255), thick=6):
 
 # This function is very similar to extract_features()
 # just for a single image rather than list of images
-
+11
 def single_img_features(img, color_space='RGB', spatial_size=(32, 32),
                         hist_bins=32, orient=9,
                         pix_per_cell=8, cell_per_block=2, hog_channel=0,

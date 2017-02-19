@@ -5,7 +5,7 @@ from scipy.ndimage.measurements import label
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import LinearSVC
-
+from time import time
 from feature_functions import *
 
 star_time = time()
@@ -67,6 +67,8 @@ print(round(t2 - t, 2), 'Seconds to train SVC...')
 print('Test Accuracy of SVC = ', round(svc.score(X_test, y_test), 4))
 # Check the prediction time for a single sample
 #
+
+
 # # Use a random forest
 # t = time()
 # rf = RandomForestClassifier(n_estimators=50)
@@ -77,15 +79,18 @@ print('Test Accuracy of SVC = ', round(svc.score(X_test, y_test), 4))
 # print('Test Accuracy of RF = ', round(rf.score(X_test, y_test), 4))
 #
 #
-# # Box using sliding window
-#
+# Box using sliding window
+
+# Testing on images
+#Uncomment to test on images
+
 # test_images = glob.glob('test_images/*.jpg')
 # images = []
 # titles = []
 # y_start_stop = [400, 656]  # Min and max in y to search in slide_window()
 # over_lap =0.5
-#
-# for image in test_images:
+# #
+# # for image in test_images:
 #     t = time()
 #     img = mpimg.imread(image)
 #     draw_image = np.copy(img)
@@ -102,15 +107,15 @@ print('Test Accuracy of SVC = ', round(svc.score(X_test, y_test), 4))
 #
 #     windows = window1 + window3 + window2
 #
-#     hot_windows = search_windows(img, windows, rf, X_scaler, color_space=color_space,
+#     hot_windows = search_windows(img, windows, svc, X_scaler, color_space=color_space,
 #                                  spatial_size=spatial_size, hist_bins=hist_bins,
 #                                  orient=orient, pix_per_cell=pix_per_cell,
 #                                  cell_per_block=cell_per_block,
 #                                  hog_channel=hog_channel, spatial_feat=spatial_feat,
 #                                  hist_feat=hist_feat, hog_feat=hog_feat)
 #     heat_img  = add_heat(heat,hot_windows)
-#     # heat_img1 = apply_threshold(heat_img,0)
-#     # heatmap = np.clip(heat_img1, 0, 255)
+#     heat_img1 = apply_threshold(heat_img,0)
+#     heatmap = np.clip(heat_img1, 0, 255)
 #     labels = label(heatmap)
 #     window_img = draw_labeled_bboxes(np.copy(draw_image), labels)
 #     # window_img = draw_boxes(draw_image, hot_windows, color=(0, 0, 255), thick=6)
@@ -119,31 +124,19 @@ print('Test Accuracy of SVC = ', round(svc.score(X_test, y_test), 4))
 #     titles.append(" ")
 #     titles.append(" ")
 #     print(time()-t, " seconds to process one image with ", len(windows), " windows")
-
+#
 # fig = plt.figure(figsize=(12,18))
 #
 # visualize(fig, 3,2,images, titles)
-#
-# plt.imshow(heat_img1, cmap="hot")
-# plt.imshow(heat_img, cmap="hot")
-# plt.imshow(heatmap, cmap="hot")
-#
-# heat_img1 = apply_threshold(np.copy(heat_img),3)
-# plt.imshow(heat_img1, cmap="hot")
-# heatmap = np.clip(heat_img1, 0, 255)
-#
-#
-# fig.savefig('write_up/searchslide.png')
-# plt.imshow(window_img)
 
 
-### funciton generation####
+### funciton generation for video ####
 from car_tracker import HeatTracker
 
 car_ind = np.random.randint(0, len(cars))
 car_image = mpimg.imread(cars[car_ind])
 
-alpha = HeatTracker(image=car_image, mysmoothover=15)
+alpha = HeatTracker(image=car_image, mysmoothover=12)
 
 
 def find_vehicles(img):
@@ -171,7 +164,7 @@ def find_vehicles(img):
                                  hist_feat=hist_feat, hog_feat=hog_feat)
     heat_img = add_heat(heat, hot_windows)
     heat_image_sum = alpha.avg_heat(heat_img)
-    heat_img1 = apply_threshold(heat_image_sum, 2)
+    heat_img1 = apply_threshold(heat_image_sum, 3)
     heatmap = np.clip(heat_img1, 0, 255)
     labels = label(heatmap)
     window_img = draw_labeled_bboxes(draw_image, labels)
@@ -181,7 +174,7 @@ def find_vehicles(img):
 
 from moviepy.editor import VideoFileClip
 
-test_out = "heat_avg_smooth15_thresh3.mp4"
+test_out = "heat_avg_smooth12_thresh3.mp4"
 
 clip = VideoFileClip("project_video.mp4")
 
