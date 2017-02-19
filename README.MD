@@ -1,5 +1,10 @@
 # **Vehicle Detection Project**
 
+
+
+![alttext][.examples/real_time_vehicle_detection.jpg](https://www.youtube.com/watch?v=NevAbwn9ywk)
+
+
 ### Overview:
 
 * Extracted Histogram of Oriented Gradients (HOG) features, color transforms features,  binned color features, as well as histograms of color extraction on a labeled training set of images
@@ -10,11 +15,11 @@
 [//]: # (Image References)
 [image1]: ./examples/trainingdata.png "Training data"
 [image2]: ./examples/hogimage.png "HOG features"
-[image3]: ./examples/sliding_windows.jpg
+[image3]: ./examples/window_search.jpg
 [image4]: ./examples/slidingwindow.jpg "Sliding window"
 [image5]: ./examples/bboxes_and_heat1.jpg
-[image6]: ./examples/labels_map.png
-[image7]: ./examples/output_bboxes.png
+[image6]: ./examples/labeldata_final.png "Labels"
+[image7]: ./examples/output_final.png  "Bounding boxes on final image"
 [video1]: ./project_video.mp4
 
 
