@@ -1,58 +1,30 @@
-import matplotlib.image as mpimg
-import matplotlib.pyplot as plt
-import numpy as np
-import cv2
 import glob
-import time
-from sklearn.svm import LinearSVC
-from sklearn.preprocessing import StandardScaler
-from skimage.feature import hog
-from feature_functions import *
-# NOTE: the next import is only valid for scikit-learn version <= 0.17
-# for scikit-learn >= 0.18 use:
+from time import time
+
+from scipy.ndimage.measurements import label
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.svm import LinearSVC
 
+from feature_functions import *
 
-
-
-
-
+star_time = time()
 
 # Read in cars and notcars
 cars = glob.glob('dataset/vehicles/*/**.png', recursive=True)
 notcars = glob.glob('dataset/non-vehicles/*/**.png', recursive=True)
-# cars = []
-# notcars = []
-# for image in images:
-#     if 'image' in image or 'extra' in image:
-#         notcars.append(image)
-#     else:
-#         cars.append(image)
 
-# Feature space visulaization
-# Plots
-
-
-
-
-
-
-
-
-
-
-### TODO: Tweak these parameters and see how the results change.
-color_space = 'YUV'  # Can be RGB, HSV, LUV, HLS, YUV, YCrCb
+# Feature Parameters
+color_space = 'YCrCb'  # Can be RGB, HSV, LUV, HLS, YUV, YCrCb
 orient = 9  # HOG orientations
 pix_per_cell = 8  # HOG pixels per cell
 cell_per_block = 2  # HOG cells per block
-hog_channel = 0  # Can be 0, 1, 2, or "ALL"
+hog_channel = 'ALL'  # Can be 0, 1, 2, or "ALL"
 spatial_size = (32, 32)  # Spatial binning dimensions
-hist_bins = 16  # Number of histogram bins
+hist_bins = 32  # Number of histogram bins
 spatial_feat = True  # Spatial features on or off
 hist_feat = True  # Histogram features on or off
 hog_feat = True  # HOG features on or off
-y_start_stop = [None, None]  # Min and max in y to search in slide_window()
 
 car_features = extract_features(cars, color_space=color_space,
                                 spatial_size=spatial_size, hist_bins=hist_bins,
@@ -87,33 +59,132 @@ print('Feature vector length:', len(X_train[0]))
 # Use a linear SVC
 svc = LinearSVC()
 # Check the training time for the SVC
-t = time.time()
+t = time()
 svc.fit(X_train, y_train)
-t2 = time.time()
+t2 = time()
 print(round(t2 - t, 2), 'Seconds to train SVC...')
 # Check the score of the SVC
 print('Test Accuracy of SVC = ', round(svc.score(X_test, y_test), 4))
 # Check the prediction time for a single sample
-t = time.time()
+#
+# # Use a random forest
+# t = time()
+# rf = RandomForestClassifier(n_estimators=50)
+# rf.fit(X_train,y_train)
+# t2 = time()
+# print(round(t2 - t, 2), 'Seconds to train RF...')
+# # Check the score of the SVC
+# print('Test Accuracy of RF = ', round(rf.score(X_test, y_test), 4))
+#
+#
+# # Box using sliding window
+#
+# test_images = glob.glob('test_images/*.jpg')
+# images = []
+# titles = []
+# y_start_stop = [400, 656]  # Min and max in y to search in slide_window()
+# over_lap =0.5
+#
+# for image in test_images:
+#     t = time()
+#     img = mpimg.imread(image)
+#     draw_image = np.copy(img)
+#     img = img.astype(np.float32)/255 # image trained is .png 0 to 1, image searched is 0 to 255
+#     heat = np.zeros_like(img[:, :, 0]).astype(np.float)
+#
+#     window1 = slide_window(img, x_start_stop=[None, None], y_start_stop=y_start_stop,
+#                            xy_window=(64, 64), xy_overlap=(over_lap, over_lap))
+#
+#     window2 = slide_window(img, x_start_stop=[None, None], y_start_stop=y_start_stop,
+#                            xy_window=(96, 96), xy_overlap=(over_lap, over_lap))
+#     window3 = slide_window(img, x_start_stop=[None, None], y_start_stop=y_start_stop,
+#                            xy_window=(128, 128), xy_overlap=(over_lap, over_lap))
+#
+#     windows = window1 + window3 + window2
+#
+#     hot_windows = search_windows(img, windows, rf, X_scaler, color_space=color_space,
+#                                  spatial_size=spatial_size, hist_bins=hist_bins,
+#                                  orient=orient, pix_per_cell=pix_per_cell,
+#                                  cell_per_block=cell_per_block,
+#                                  hog_channel=hog_channel, spatial_feat=spatial_feat,
+#                                  hist_feat=hist_feat, hog_feat=hog_feat)
+#     heat_img  = add_heat(heat,hot_windows)
+#     # heat_img1 = apply_threshold(heat_img,0)
+#     # heatmap = np.clip(heat_img1, 0, 255)
+#     labels = label(heatmap)
+#     window_img = draw_labeled_bboxes(np.copy(draw_image), labels)
+#     # window_img = draw_boxes(draw_image, hot_windows, color=(0, 0, 255), thick=6)
+#     images.append(window_img)
+#     images.append(heatmap)
+#     titles.append(" ")
+#     titles.append(" ")
+#     print(time()-t, " seconds to process one image with ", len(windows), " windows")
 
-image = mpimg.imread('bbox-example-image.jpg')
-draw_image = np.copy(image)
+# fig = plt.figure(figsize=(12,18))
+#
+# visualize(fig, 3,2,images, titles)
+#
+# plt.imshow(heat_img1, cmap="hot")
+# plt.imshow(heat_img, cmap="hot")
+# plt.imshow(heatmap, cmap="hot")
+#
+# heat_img1 = apply_threshold(np.copy(heat_img),3)
+# plt.imshow(heat_img1, cmap="hot")
+# heatmap = np.clip(heat_img1, 0, 255)
+#
+#
+# fig.savefig('write_up/searchslide.png')
+# plt.imshow(window_img)
 
-# Uncomment the following line if you extracted training
-# data from .png images (scaled 0 to 1 by mpimg) and the
-# image you are searching is a .jpg (scaled 0 to 255)
-# image = image.astype(np.float32)/255
 
-windows = slide_window(image, x_start_stop=[None, None], y_start_stop=y_start_stop,
-                       xy_window=(96, 96), xy_overlap=(0.5, 0.5))
+### funciton generation####
+from car_tracker import HeatTracker
 
-hot_windows = search_windows(image, windows, svc, X_scaler, color_space=color_space,
-                             spatial_size=spatial_size, hist_bins=hist_bins,
-                             orient=orient, pix_per_cell=pix_per_cell,
-                             cell_per_block=cell_per_block,
-                             hog_channel=hog_channel, spatial_feat=spatial_feat,
-                             hist_feat=hist_feat, hog_feat=hog_feat)
+car_ind = np.random.randint(0, len(cars))
+car_image = mpimg.imread(cars[car_ind])
 
-window_img = draw_boxes(draw_image, hot_windows, color=(0, 0, 255), thick=6)
+alpha = HeatTracker(image=car_image, mysmoothover=15)
 
-plt.imshow(window_img)
+
+def find_vehicles(img):
+    # t = time()
+    # img = mpimg.imread(image)
+    draw_image = np.copy(img)
+    img = img.astype(np.float32) / 255  # image trained is .png 0 to 1, image searched is 0 to 255
+    heat = np.zeros_like(img[:, :, 0]).astype(np.float)
+
+    window1 = slide_window(img, x_start_stop=[None, None], y_start_stop=[400, 656],
+                           xy_window=(64, 64), xy_overlap=(0.5, 0.5))
+
+    window2 = slide_window(img, x_start_stop=[None, None], y_start_stop=[400, 656],
+                           xy_window=(96, 96), xy_overlap=(0.5, 0.5))
+    window3 = slide_window(img, x_start_stop=[None, None], y_start_stop=[400, 656],
+                           xy_window=(128, 128), xy_overlap=(0.5, 0.5))
+
+    windows = window1 + window2 + window3
+
+    hot_windows = search_windows(img, windows, svc, X_scaler, color_space=color_space,
+                                 spatial_size=spatial_size, hist_bins=hist_bins,
+                                 orient=orient, pix_per_cell=pix_per_cell,
+                                 cell_per_block=cell_per_block,
+                                 hog_channel=hog_channel, spatial_feat=spatial_feat,
+                                 hist_feat=hist_feat, hog_feat=hog_feat)
+    heat_img = add_heat(heat, hot_windows)
+    heat_image_sum = alpha.avg_heat(heat_img)
+    heat_img1 = apply_threshold(heat_image_sum, 2)
+    heatmap = np.clip(heat_img1, 0, 255)
+    labels = label(heatmap)
+    window_img = draw_labeled_bboxes(draw_image, labels)
+    # window_img = draw_boxes(draw_image, hot_windows, color=(0, 0, 255), thick=6)
+    return window_img
+
+
+from moviepy.editor import VideoFileClip
+
+test_out = "heat_avg_smooth15_thresh3.mp4"
+
+clip = VideoFileClip("project_video.mp4")
+
+test_clip = clip.fl_image(find_vehicles)
+
+test_clip.write_videofile(test_out, audio=False)
