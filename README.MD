@@ -1,7 +1,7 @@
 # **Vehicle Detection Project**
 
 
-[![Real Time Vehicle Detection (video)](.examples/real_time_vehicle_detection.jpg)](https://www.youtube.com/watch?v=NevAbwn9ywke)
+[![Real Time Vehicle Detection (video)](./examples/real_time_vehicle_detection.jpg)](https://www.youtube.com/watch?v=NevAbwn9ywke)
 
 
 ### Overview:
@@ -14,7 +14,7 @@
 [//]: # (Image References)
 [image1]: ./examples/trainingdata.png "Training data"
 [image2]: ./examples/hogimage.png "HOG features"
-[image3]: ./examples/window_search.jpg
+[image3]: ./examples/window_search.png
 [image4]: ./examples/slidingwindow.jpg "Sliding window"
 [image5]: ./examples/bboxes_and_heat1.jpg
 [image6]: ./examples/labeldata_final.png "Labels"
@@ -89,7 +89,7 @@ Here's an example result showing the heatmap from a series of frames of video, t
 
 Here's what I got, lane and vehicle detection in realtime :)
 
-[![Real Time Vehicle & Lane Detection (video)](.examples/combined_project.jpg)](https://www.youtube.com/watch?v=KH8WNuqnpq8)
+[![Real Time Vehicle & Lane Detection (video)](./examples/combined_project.jpg)](https://www.youtube.com/watch?v=KH8WNuqnpq8)
 
 
 ---
