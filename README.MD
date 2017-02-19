@@ -12,7 +12,7 @@
 [image2]: ./examples/hogimage.png "HOG features"
 [image3]: ./examples/sliding_windows.jpg
 [image4]: ./examples/slidingwindow.jpg "Sliding window"
-[image5]: ./examples/bboxes_and_heat1.png
+[image5]: ./examples/bboxes_and_heat1.jpg
 [image6]: ./examples/labels_map.png
 [image7]: ./examples/output_bboxes.png
 [video1]: ./project_video.mp4
