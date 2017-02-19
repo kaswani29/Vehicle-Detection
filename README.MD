@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 **Vehicle Detection Project**
 
 Overview:
@@ -48,32 +47,33 @@ Here is an example using the `YUV` color space and HOG parameters of `orientatio
 
 ![alt text][image2]
 
-####2. Explain how you settled on your final choice of HOG parameters.
+####2. Optimizing Parameters for HOG, color and spatial binning
 
-I tried various combinations of parameters and...
+I tried various combinations of parameters, explored visualizing them and finally tested using the classifier. The combination that gave best accuracy on test set was chosen in the end. More thorough way to optimize these would be by doing a random grid search using scikit learn.
 
-####3. Describe how (and identify where in your code) you trained a classifier using your selected HOG features (and color features if you used them).
+####3. Training Classifier:
 
-I trained a linear SVM using...
+I trained both a linear SVM and Random forest classifer. Both of them had very comparable performance on the test set with SVM doing slightly better. These are implemented from line 60 to 79 in  `vehicle_detection_pipeline.py`
 
 ###Sliding Window Search
 
-####1. Describe how (and identify where in your code) you implemented a sliding window search.  How did you decide what scales to search and how much to overlap windows?
+####1. Implementation of sliding window search, choosing the size and overlap:
 
-I decided to search random window positions at random scales all over the image and came up with this (ok just kidding I didn't actually ;):
+For sliding window, I chose to decide only an area from 400 px to 656 px on y axis as above (sky) and below no cars would be found. I kept the entire x axis for the search. For the size of the window, I chose three sizes (64,64), (96,96) and (128,128). 
 
 ![alt text][image3]
 
-####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
+####2. Pipeline:
 
-Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
+Ultimately I chose YCrCb color space with 3-channel HOG features plus spatially binned (32,32) color and histograms of color (32 bins) in the feature vector, which provided a nice result.  Here are some example images:
 
 ![alt text][image4]
 ---
 
 ### Video Implementation
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (somewhat wobbly or unstable bounding boxes are ok as long as you are identifying the vehicles most of the time with minimal false positives.)
+####1. Vehicle detection on Video Pipeline:
+
 Here's a [link to my video result](./project_video.mp4)
 
 
@@ -102,4 +102,6 @@ Here's an example result showing the heatmap from a series of frames of video, t
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+
+The search can be further by keeping different y axis for different window sizes.
 
