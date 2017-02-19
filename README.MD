@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 **Vehicle Detection Project**
 
 Overview:
@@ -8,10 +9,20 @@ Overview:
 * Implement a sliding-window technique and use your trained classifier to search for vehicles in images.
 * Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
 * Estimate a bounding box for vehicles detected.
+=======
 
+## **Vehicle Detection Project**
+
+###Overview:
+
+* Extracted Histogram of Oriented Gradients (HOG) features, color transforms features,  binned color features, as well as histograms of color extraction on a labeled training set of images
+* Trained classifier such as Linear SVM and Random forest on the concatenated above features for each image
+* Implemented a sliding-window technique and used the trained classifier to search for vehicles in images
+* Ran the pipeline on a video stream (project_video.mp4) to create a heat map of recurring detections frame by frame and to reject outliers and to follow the detected vehicles.
+* Estimated a bounding box for vehicles detected.
 [//]: # (Image References)
-[image1]: ./examples/car_not_car.png
-[image2]: ./examples/HOG_example.jpg
+[image1]: ./examples/trainingdata.png "Training data"
+[image2]: ./examples/hogimage.png "HOG features"
 [image3]: ./examples/sliding_windows.jpg
 [image4]: ./examples/sliding_window.jpg
 [image5]: ./examples/bboxes_and_heat.png
@@ -19,30 +30,21 @@ Overview:
 [image7]: ./examples/output_bboxes.png
 [video1]: ./project_video.mp4
 
-## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
-###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
----
-###Writeup / README
-
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
-
-You're reading it!
 
 ###Histogram of Oriented Gradients (HOG)
 
-####1. Explain how (and identify where in your code) you extracted HOG features from the training images.
+####1. Extracting HOG features:
 
-The code for this step is contained in the first code cell of the IPython notebook (or in lines # through # of the file called `some_file.py`).  
+To extract HOG features and various other features I used the function extrac_features. It is defined in the `feature_functions.py` from 52 to 101. I am using this function in the main project script `vehicle_detection_pipeline.py` in line 29 to 40 to extract features from the training data. I did most of the visualization of different features in `visulaizations.py`.
 
 I started by reading in all the `vehicle` and `non-vehicle` images.  Here is an example of one of each of the `vehicle` and `non-vehicle` classes:
 
 ![alt text][image1]
 
-I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like.
+I then explored different color spaces and different `skimage.hog()` parameters (`orientations`, `pixels_per_cell`, and `cells_per_block`).  I grabbed random images from each of the two classes and displayed them to get a feel for what the `skimage.hog()` output looks like. Look into `visualizations.py`, in lines 44 to 58 where I am using single_img_features function to extract features from a single image at a time.
 
-Here is an example using the `YCrCb` color space and HOG parameters of `orientations=8`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
-
+Here is an example using the `YUV` color space and HOG parameters of `orientations=9`, `pixels_per_cell=(8, 8)` and `cells_per_block=(2, 2)`:
 
 ![alt text][image2]
 
